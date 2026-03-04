@@ -10,11 +10,16 @@ NOTE: This class is the metaphorical "main method" of your program,
 import java.awt.*;
 import java.awt.event.*;
 
-class YourGameName extends Game {
-	static int counter = 0;
+import javax.swing.JOptionPane;
 
-  public YourGameName() {
-    super("YourGameName!",800,600);
+class YourGameName extends Game 
+{
+	static int counter = 0, widthSet = 0, heightSet = 0;
+	
+
+  public YourGameName() 
+  {
+    super("YourGameName!", widthSet, heightSet);
     this.setFocusable(true);
 	this.requestFocus();
   }
@@ -31,10 +36,11 @@ class YourGameName extends Game {
     	brush.drawString("Counter is " + counter,10,10);
   }
   
-	//rnadom comment
-	public static void main (String[] args) {
-   		YourGameName a = new YourGameName();
+	public static void main (String[] args) 
+	{
+		widthSet = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter width for resolution (Recommended 1920):", 1920));
+		heightSet  = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter height for resolution (Recommended 1080):", 1080));
+		YourGameName a = new YourGameName();
 		a.repaint();
-		System.out.print("hello");
 	}
 }
