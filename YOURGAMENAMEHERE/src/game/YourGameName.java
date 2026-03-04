@@ -31,8 +31,10 @@ class YourGameName extends Game {
     	brush.drawString("Counter is " + counter,10,10);
   }
   
+	//rnadom comment
 	public static void main (String[] args) {
    		YourGameName a = new YourGameName();
 		a.repaint();
-  }
+		System.out.print("hello");
+	}
 }
