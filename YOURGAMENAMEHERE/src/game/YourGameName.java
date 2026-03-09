@@ -12,13 +12,13 @@ import java.awt.event.*;
 
 import javax.swing.JOptionPane;
 
-class YourGameName extends Game 
+class RecycleSwish extends Game 
 {
 	static int counter = 0, widthSet = 0, heightSet = 0;
 
-	public YourGameName() 
+	public RecycleSwish() 
 	{
-	    super("YourGameName!", widthSet, heightSet);
+	    super("RecycleSwish!", widthSet, heightSet);
 	    this.setFocusable(true);
 		this.requestFocus();
 	}
@@ -41,7 +41,7 @@ class YourGameName extends Game
 	{
 		widthSet = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter width for resolution (Recommended 1600):", 1600));
 		heightSet  = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter height for resolution (Recommended 900):", 900));
-		YourGameName a = new YourGameName();
+		RecycleSwish a = new RecycleSwish();
 		a.repaint();
 	}
 }
