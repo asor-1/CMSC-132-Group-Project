@@ -15,31 +15,32 @@ import javax.swing.JOptionPane;
 class YourGameName extends Game 
 {
 	static int counter = 0, widthSet = 0, heightSet = 0;
-	
 
-  public YourGameName() 
-  {
-    super("YourGameName!", widthSet, heightSet);
-    this.setFocusable(true);
-	this.requestFocus();
-  }
-  
-	public void paint(Graphics brush) {
+	public YourGameName() 
+	{
+	    super("YourGameName!", widthSet, heightSet);
+	    this.setFocusable(true);
+		this.requestFocus();
+	}
+	  
+	public void paint(Graphics brush) 
+	{
     	brush.setColor(Color.black);
-    	brush.fillRect(0,0,width,height);
+    	brush.fillRect(0, 0, widthSet, heightSet);
     	
-    	// sample code for printing message for debugging
-    	// counter is incremented and this message printed
-    	// each time the canvas is repainted
-    	counter++;
     	brush.setColor(Color.white);
-    	brush.drawString("Counter is " + counter,10,10);
-  }
+    	Font font = new Font("Arial", Font.BOLD, 30);
+    	brush.setFont(font);
+    	
+    	FontMetrics fm = brush.getFontMetrics(font);
+    	String title = "Recycle Swish";
+    	brush.drawString(title, (widthSet - fm.stringWidth(title)) / 2, 100);
+	}
   
 	public static void main (String[] args) 
 	{
-		widthSet = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter width for resolution (Recommended 1920):", 1920));
-		heightSet  = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter height for resolution (Recommended 1080):", 1080));
+		widthSet = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter width for resolution (Recommended 1600):", 1600));
+		heightSet  = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter height for resolution (Recommended 900):", 900));
 		YourGameName a = new YourGameName();
 		a.repaint();
 	}
