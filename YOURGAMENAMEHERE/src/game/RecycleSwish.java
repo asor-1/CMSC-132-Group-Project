@@ -34,6 +34,8 @@ class RecycleSwish extends Game
 	TrashCan trashCan;
 	Pencil pencil;
 	Projectile currentObject;
+	//inner class 
+	Scoreboard s;
 	public RecycleSwish() 
 	{
 	    super("RecycleSwish!", widthSet, heightSet);
@@ -43,7 +45,7 @@ class RecycleSwish extends Game
 		paperBall = new Paperball(new Point(150, heightSet - 180));
 		trashCan = new TrashCan(new Point(widthSet - 200, heightSet - 220));
 		pencil = new Pencil(new Point(150, heightSet - 180));
-
+		s = new Scoreboard();
 		//Default with paperball
 		currentObject = paperBall;
 
@@ -117,89 +119,47 @@ class RecycleSwish extends Game
 	  
 	public void paint(Graphics brush) 
 	{
-    	brush.setColor(Color.black);
+		// draw black background
+        brush.setColor(Color.black);
     	brush.fillRect(0, 0, widthSet, heightSet);
     	
-    	brush.setColor(Color.white);
-    	Font font = new Font("Arial", Font.BOLD, 30);
-    	brush.setFont(font);
-    	
-    	//Title
-    	FontMetrics fm = brush.getFontMetrics(font);
-    	String title = "Recycle Swish";
-    	brush.drawString(title, (widthSet - fm.stringWidth(title)) / 2, 100);
-    	
-    	//Statistics 
-    	brush.setColor(Color.GREEN);
-    	brush.setFont(new Font("Arial", Font.PLAIN, 20));
-    	brush.drawString("Score: " + score, 20, 40);
-    	brush.drawString("Angle: " + angle, 20, 70);
-    	brush.drawString("Power: " + power, 20, 100);
-    	brush.drawString("Selected: " + 
-    	(currentObject == paperBall ? "Paper Ball" : "Pencil"), 20, 130);
-
-    	//Instructions
-    	brush.setColor(Color.WHITE);
-    	brush.drawString("1 = Paperball", 20, heightSet - 135);
-    	brush.drawString("2 = Pencil", 20, heightSet - 115);
-    	brush.drawString("UP/DOWN (Arrow) = angle", 20, heightSet - 95);
-    	brush.drawString("LEFT/RIGHT (Arrow) = power", 20, heightSet - 75);
-    	brush.drawString("SPACE = launch", 20, heightSet - 55);
-    	
-    	//Adjust Power/Angle
-    	if (upButton && angle < 85) 
-    	{
+    	//adjusting the power and the angle using the arrow keys
+    	if (upButton && angle < 85){
     		angle += 1;
     	}
-    	if (downButton && angle > 5) 
-    	{
+    	if(downButton && angle > 5) {
     		angle -= 1;
     	}
-    	if (rightButton && power < 90) 
-    	{
+    	if(rightButton && power < 90){
     		power += 0.2;
     	}
-    	if (leftButton && power > 1) 
-    	{
+    	if (leftButton && power > 1){
     		power -= 0.2;
     	}
     	
-    	//Launcher
-    	if (spaceBarButton) 
-    	{
+    	// launch
+    	if (spaceBarButton) {
     		currentObject.launchInAir(angle, power);
     		spaceBarButton = false;
     	}
 
-    	//Update physics
     	currentObject.updatePhysics(0.1);
 
-    	//Draw Objects
+    	// Draw Objects
     	currentObject.paint(brush);
     	trashCan.paint(brush);
     	
-    	//Check for collision
-    	if(currentObject.collides(trashCan))
-    	{
+    	// checking for collision
+    	if (currentObject.collides(trashCan)){
     		score++;
     		resetObject();
-    	}
-    	else if(currentObject.position.y > heightSet - 120 ||
-        	    currentObject.position.x > widthSet ||
-        	    currentObject.position.x < 0 ||
-        	    currentObject.position.y < 0)
-    	{
+    	} 
+    	else if(currentObject.position.y > heightSet - 120 || currentObject.position.x > widthSet || currentObject.position.x < 0 || currentObject.position.y < 0) {
     		resetObject();
     	}
 
-    	//Update Text
-    	brush.setColor(Color.green);
-    	brush.setFont(new Font("Arial", Font.PLAIN, 20));
-    	brush.drawString("Score: " + score, 20, 40);
-    	brush.drawString("Angle: " + (int) angle, 20, 70);
-    	brush.drawString("Power: " + String.format("%.1f", power), 20, 100);
-
-    	brush.setColor(Color.white);
+        //draw using innerclass scoreboard
+        s.draw(brush);
     	
 	}
   
@@ -231,4 +191,44 @@ class RecycleSwish extends Game
 			currentObject = pencil;
 		}
 	}
+	
+	private class Scoreboard{
+        public void draw(Graphics brush) {
+            brush.setColor(Color.white);
+            Font font = new Font("Arial", Font.BOLD, 30);
+            brush.setFont(font);
+            
+            // title of canvas
+            FontMetrics fm = brush.getFontMetrics(font);
+            String title = "Recycle Swish";
+            brush.drawString(title, (widthSet - fm.stringWidth(title)) / 2, 100);
+            
+            // color
+            brush.setColor(Color.BLUE);
+            brush.setFont(new Font("Arial", Font.PLAIN, 17));
+            
+            // score
+            brush.drawString("Current score: " + score, 20, 40);
+            
+            // cast angle from double to int 
+            brush.drawString("Angle: " + (int) angle, 20, 70);
+            
+            //format the power
+            String power2 = String.format("%.2f", power);
+            brush.drawString("Power: " + power2, 20, 100);
+            
+            // which object is selected using ternary
+            brush.drawString("Selected: " + (currentObject == paperBall ? "Paper Ball" : "Pencil"), 20, 130);
+
+            
+            brush.setColor(Color.WHITE);
+            
+            //this is the rules/instructuions
+            brush.drawString("1 = Paperball", 20, heightSet - 135);
+            brush.drawString("2 = Pencil", 20, heightSet - 115);
+            brush.drawString("UP/DOWN (Arrow) = Angle", 20, heightSet - 95);
+            brush.drawString("LEFT/RIGHT (Arrow) = Power", 20, heightSet - 75);
+            brush.drawString("SPACE = Launch!", 20, heightSet - 55);
+        }
+    }
 }

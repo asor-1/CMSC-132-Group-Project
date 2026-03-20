@@ -3,7 +3,7 @@ package game;
 import java.awt.Graphics;
 
 
-public abstract class Projectile extends Polygon {
+public abstract class Projectile extends Polygon implements Reset{
     //variables for classes to inherit
     private double vX;
     private double vY;

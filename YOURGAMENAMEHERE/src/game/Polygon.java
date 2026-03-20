@@ -102,6 +102,11 @@ class Polygon {
     return new Point(Math.abs(sum.x/(6*area)),Math.abs(sum.y/(6*area)));
   }
   
+  /**
+   * Randy and Alex contribute to logic
+   * @param object
+   * @return
+   */
   public boolean collides(Polygon object) 
   {
 	  //Goes through each point and see if there is any collision/intersecting
