@@ -36,6 +36,7 @@ class RecycleSwish extends Game
 	Projectile currentObject;
 	//inner class 
 	Scoreboard s;
+	AimVisual av;
 	public RecycleSwish() 
 	{
 	    super("RecycleSwish!", widthSet, heightSet);
@@ -46,6 +47,7 @@ class RecycleSwish extends Game
 		trashCan = new TrashCan(new Point(widthSet - 200, heightSet - 220));
 		pencil = new Pencil(new Point(150, heightSet - 180));
 		s = new Scoreboard();
+		av = new AimVisual();
 		//Default with paperball
 		currentObject = paperBall;
 
@@ -161,6 +163,10 @@ class RecycleSwish extends Game
         //draw using innerclass scoreboard
         s.draw(brush);
     	
+        if(!currentObject.isInAir())
+        {
+        	av.draw(brush);
+        }
 	}
   
 	public static void main (String[] args) 
@@ -231,4 +237,32 @@ class RecycleSwish extends Game
             brush.drawString("SPACE = Launch!", 20, heightSet - 55);
         }
     }
+	
+	private class AimVisual
+	{
+		public void draw(Graphics brush)
+		{
+			//Changes color based on object
+			if(currentObject == paperBall)
+			{
+				brush.setColor(Color.WHITE);
+			}
+			
+			if(currentObject == pencil)
+			{
+				brush.setColor(Color.YELLOW);
+			}
+			
+			//Find object position
+			int startX = (int) currentObject.position.x;
+			int startY = (int) currentObject.position.y;
+			
+			int length = 100;
+			
+			int endX = (int) (startX + length * Math.cos(Math.toRadians(angle)));
+	        int endY = (int) (startY - length * Math.sin(Math.toRadians(angle)));
+	        
+	        brush.drawLine(startX, startY, endX, endY);
+		}
+	}
 }
