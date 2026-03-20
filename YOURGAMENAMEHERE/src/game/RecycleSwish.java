@@ -9,6 +9,7 @@ NOTE: This class is the metaphorical "main method" of your program,
 */
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 
 import javax.swing.JOptionPane;
 
@@ -212,7 +213,12 @@ class RecycleSwish extends Game
 	
 	private void resetObject()
 	{
-		Point startPoint = new Point(150, heightSet - 180);
+		int minX = 150;
+		int maxX = widthSet / 2;
+
+		Random rand = new Random();
+		int randX = rand.nextInt(maxX - minX) + minX;
+		Point startPoint = new Point(randX, heightSet - 180);
 
 		if (currentObject == paperBall) 
 		{
