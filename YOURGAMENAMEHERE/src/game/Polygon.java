@@ -102,7 +102,17 @@ class Polygon {
     return new Point(Math.abs(sum.x/(6*area)),Math.abs(sum.y/(6*area)));
   }
   
-  public boolean collides(Polygon p) {
-	  return true;
+  public boolean collides(Polygon object) 
+  {
+	  //Goes through each point and see if there is any collision/intersecting
+	  for(Point p : this.getPoints())
+	  {
+		  if(object.contains(p))
+		  {
+			  return true;
+		  }
+	  }
+	  
+	  return false;
   }
 }

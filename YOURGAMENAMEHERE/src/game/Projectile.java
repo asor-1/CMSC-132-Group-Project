@@ -28,8 +28,8 @@ public abstract class Projectile extends Polygon {
     	// make boolean true
         this.isInAir = true;
         // calculate the velocity for x and y component
-        this.vY = power * Math.cos(Math.toRadians(angleDegrees));
-        this.vX = power * Math.sin(Math.toRadians(angleDegrees));
+        this.vX = power * Math.cos(Math.toRadians(angleDegrees));
+        this.vY = -power * Math.sin(Math.toRadians(angleDegrees));
     }
 
     /**
@@ -49,6 +49,20 @@ public abstract class Projectile extends Polygon {
             // rotate the projectile
             this.rotate(7);
         }
+    }
+    
+    public boolean isInAir()
+    {
+    	return isInAir;
+    }
+    
+    public void resetPosition(Point start) 
+    {
+    	this.position = start;
+    	this.vX = 0;
+    	this.vY = 0;
+    	this.isInAir = false;
+    	this.rotation = 0;
     }
     
     //child class must define how it looks
