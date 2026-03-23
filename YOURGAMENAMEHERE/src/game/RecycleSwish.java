@@ -33,7 +33,7 @@ class RecycleSwish extends Game
 	Paperball paperBall;
 	TrashCan trashCan;
 	Pencil pencil;
-	Projectile currentObject;
+	Projectile currObj;
 	//inner class 
 	Scoreboard s;
 	AimVisual av;
@@ -49,7 +49,7 @@ class RecycleSwish extends Game
 		s = new Scoreboard();
 		av = new AimVisual();
 		//Default with paperball
-		currentObject = paperBall;
+		currObj = paperBall;
 
 		this.addKeyListener(new KeyListener() 
 		{
@@ -81,11 +81,11 @@ class RecycleSwish extends Game
 				}
 				if (key == KeyEvent.VK_1)
 				{
-					currentObject = paperBall;
+					currObj = paperBall;
 				}
 				if (key == KeyEvent.VK_2)
 				{
-					currentObject = pencil;
+					currObj = pencil;
 				}
 			}
 
@@ -120,7 +120,11 @@ class RecycleSwish extends Game
 	}
 	  
 	public void paint(Graphics brush) 
-	{
+	{	
+		//fixing this exception: Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException: Cannot invoke "game.Projectile.updatePhysics(double)" because "this.currentObject" is null
+		if (currObj == null || s == null || av == null || trashCan == null) {
+			return; 
+		}
 		// draw black background
         brush.setColor(Color.black);
     	brush.fillRect(0, 0, widthSet, heightSet);
@@ -141,29 +145,33 @@ class RecycleSwish extends Game
     	
     	// launch
     	if (spaceBarButton) {
-    		currentObject.launchInAir(angle, power);
+    		currObj.launchInAir(angle, power);
     		spaceBarButton = false;
     	}
 
-    	currentObject.updatePhysics(0.1);
+    	currObj.updatePhysics(0.1);
 
     	// Draw Objects
-    	currentObject.paint(brush);
+    	currObj.paint(brush);
     	trashCan.paint(brush);
     	
-    	// checking for collision
-    	if (currentObject.collides(trashCan)){
+    	//lambda expression 
+    	GameAction sP = () -> {
     		score++;
     		resetObject();
+    	};
+    	// checking for collision
+    	if (currObj.collides(trashCan)){
+    		sP.execute();
     	} 
-    	else if(currentObject.position.y > heightSet - 120 || currentObject.position.x > widthSet || currentObject.position.x < 0 || currentObject.position.y < 0) {
+    	else if(currObj.position.y > heightSet - 120 || currObj.position.x > widthSet || currObj.position.x < 0 || currObj.position.y < 0) {
     		resetObject();
     	}
 
         //draw using innerclass scoreboard
         s.draw(brush);
     	
-        if(!currentObject.isInAir())
+        if(!currObj.isInAir())
         {
         	av.draw(brush);
         }
@@ -186,15 +194,15 @@ class RecycleSwish extends Game
 		int randX = rand.nextInt(maxX - minX) + minX;
 		Point startPoint = new Point(randX, heightSet - 180);
 
-		if (currentObject == paperBall) 
+		if (currObj == paperBall) 
 		{
 			paperBall = new Paperball(startPoint);
-			currentObject = paperBall;
+			currObj = paperBall;
 		}
 		else 
 		{
 			pencil = new Pencil(startPoint);
-			currentObject = pencil;
+			currObj = pencil;
 		}
 	}
 	
@@ -205,15 +213,14 @@ class RecycleSwish extends Game
             brush.setFont(font);
             
             // title of canvas
-            FontMetrics fm = brush.getFontMetrics(font);
+            FontMetrics fmetrics = brush.getFontMetrics(font);
             String title = "Recycle Swish";
-            brush.drawString(title, (widthSet - fm.stringWidth(title)) / 2, 100);
+            brush.drawString(title, (widthSet - fmetrics.stringWidth(title)) / 2, 100);
             
-            // color
+            // color and the score 
             brush.setColor(Color.BLUE);
             brush.setFont(new Font("Arial", Font.PLAIN, 17));
-            
-            // score
+          
             brush.drawString("Current score: " + score, 20, 40);
             
             // cast angle from double to int 
@@ -224,7 +231,7 @@ class RecycleSwish extends Game
             brush.drawString("Power: " + power2, 20, 100);
             
             // which object is selected using ternary
-            brush.drawString("Selected: " + (currentObject == paperBall ? "Paper Ball" : "Pencil"), 20, 130);
+            brush.drawString("Selected Obj: " + (currObj == paperBall ? "Paper Ball" : "Pencil"), 20, 130);
 
             
             brush.setColor(Color.WHITE);
@@ -243,19 +250,19 @@ class RecycleSwish extends Game
 		public void draw(Graphics brush)
 		{
 			//Changes color based on object
-			if(currentObject == paperBall)
+			if(currObj == paperBall)
 			{
 				brush.setColor(Color.WHITE);
 			}
 			
-			if(currentObject == pencil)
+			if(currObj == pencil)
 			{
 				brush.setColor(Color.YELLOW);
 			}
 			
 			//Find object position
-			int startX = (int) currentObject.position.x;
-			int startY = (int) currentObject.position.y;
+			int startX = (int) currObj.position.x;
+			int startY = (int) currObj.position.y;
 			
 			int length = 100;
 			
@@ -264,5 +271,9 @@ class RecycleSwish extends Game
 	        
 	        brush.drawLine(startX, startY, endX, endY);
 		}
+	}
+	//functional interface
+	interface GameAction {
+		void execute();
 	}
 }
