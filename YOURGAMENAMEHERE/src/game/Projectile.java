@@ -2,13 +2,24 @@ package game;
 
 import java.awt.Graphics;
 
-
+/*
+ * CLASS: Projectile
+ * DESCRIPTION: Projectile class which extends Polygona and implements Reset.
+ * 				This allows objects to have some kind of physics such as 
+ * 				flying in the air.
+ */
 public abstract class Projectile extends Polygon implements Reset{
     //variables for classes to inherit
     private double vX;
     private double vY;
     private boolean isInAir;
 
+    /**
+     * Projectile constructor
+     * @param s Array of points for the shape
+     * @param p Point p
+     * @param r double r for rotation
+     */
     public Projectile(Point[] s, Point p, double r) {
         //call super with shape, point, and rotation
         super(s, p, r); 
@@ -51,11 +62,19 @@ public abstract class Projectile extends Polygon implements Reset{
         }
     }
     
+    /**
+     * Getter method for isInAir
+     * @return true or false based on isInAir
+     */
     public boolean isInAir()
     {
     	return isInAir;
     }
     
+    /**
+     * Resets the projectile and based on start point
+     * @param start Point of starting position
+     */
     public void resetPosition(Point start) 
     {
     	this.position = start;

@@ -2,6 +2,11 @@ package game;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/*
+ * CLASS: PaperBall
+ * DESCRIPTION: Paper ball element for the game. It symbolizes the paper ball
+ * 				object which extends Projectile.
+ */
 public class Paperball extends Projectile {
 	//needed to have it initialize here so that can call super in constructor
 	private static final Point[] p = {

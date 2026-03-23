@@ -2,6 +2,11 @@ package game;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/*
+ * CLASS: Pencil
+ * DESCRIPTION: Pencil element for game which extends Projectile. It is the
+ * 				object which symbolizes a pencil.
+ */
 public class Pencil extends Projectile {
 	//needed to have it initialize here so that can call super in constructor
 	private static final Point[] p = { new Point(0, 0), new Point(20, 0), new Point(25, 5), new Point(20, 10), new Point(0, 10)
@@ -14,7 +19,6 @@ public class Pencil extends Projectile {
     /**
      * paints the pencil onto the canvas
      * @param Grpahics g
-     * return void
      */
     public void paint(Graphics g) {
         Point[] points = this.getPoints();

@@ -1,8 +1,8 @@
 package game;
 
 /*
-CLASS: YourGameNameoids
-DESCRIPTION: Extending Game, YourGameName is all in the paint method.
+CLASS: RecycleSwish
+DESCRIPTION: Extending Game, RecycleSwish is all in the paint method.
 NOTE: This class is the metaphorical "main method" of your program,
       it is your control center.
 
@@ -34,9 +34,14 @@ class RecycleSwish extends Game
 	TrashCan trashCan;
 	Pencil pencil;
 	Projectile currObj;
+	
 	//inner class 
 	Scoreboard s;
 	AimVisual av;
+	
+	/**
+	 * RecycleSwish constructor for game
+	 */
 	public RecycleSwish() 
 	{
 	    super("RecycleSwish!", widthSet, heightSet);
@@ -51,6 +56,7 @@ class RecycleSwish extends Game
 		//Default with paperball
 		currObj = paperBall;
 
+		//Anonymous class for keyboard inputs
 		this.addKeyListener(new KeyListener() 
 		{
 
@@ -118,7 +124,11 @@ class RecycleSwish extends Game
 			}
 		});
 	}
-	  
+	
+	/**
+	 * Method to draw the game
+	 * @param brush Graphics of brush
+	 */
 	public void paint(Graphics brush) 
 	{	
 		//fixing this exception: Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException: Cannot invoke "game.Projectile.updatePhysics(double)" because "this.currentObject" is null
@@ -130,21 +140,26 @@ class RecycleSwish extends Game
     	brush.fillRect(0, 0, widthSet, heightSet);
     	
     	//adjusting the power and the angle using the arrow keys
-    	if (upButton && angle < 85){
+    	if (upButton && angle < 85)
+    	{
     		angle += 1;
     	}
-    	if(downButton && angle > 5) {
+    	if(downButton && angle > 5)
+    	{
     		angle -= 1;
     	}
-    	if(rightButton && power < 90){
+    	if(rightButton && power < 90)
+    	{
     		power += 0.2;
     	}
-    	if (leftButton && power > 1){
+    	if (leftButton && power > 1)
+    	{
     		power -= 0.2;
     	}
     	
     	// launch
-    	if (spaceBarButton) {
+    	if (spaceBarButton) 
+    	{
     		currObj.launchInAir(angle, power);
     		spaceBarButton = false;
     	}
@@ -185,6 +200,9 @@ class RecycleSwish extends Game
 		a.repaint();
 	}
 	
+	/**
+	 * Private helper method to help reset the object at a random point on the canvas
+	 */
 	private void resetObject()
 	{
 		int minX = 150;
@@ -206,6 +224,9 @@ class RecycleSwish extends Game
 		}
 	}
 	
+	/**
+	 * Inner class that helps display the scoreboard and statistics
+	 */
 	private class Scoreboard{
         public void draw(Graphics brush) {
             brush.setColor(Color.white);
@@ -245,6 +266,9 @@ class RecycleSwish extends Game
         }
     }
 	
+	/**
+	 * Inner class that helps show an Aim Visual to assist the user
+	 */
 	private class AimVisual
 	{
 		public void draw(Graphics brush)
@@ -272,6 +296,7 @@ class RecycleSwish extends Game
 	        brush.drawLine(startX, startY, endX, endY);
 		}
 	}
+	
 	//functional interface
 	interface GameAction {
 		void execute();

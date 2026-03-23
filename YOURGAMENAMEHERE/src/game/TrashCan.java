@@ -2,8 +2,19 @@ package game;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class TrashCan extends Polygon {
-    public TrashCan(Point pos) {
+/*
+ * CLASS: TrashCan
+ * DESCRIPTION: Trash can element for the game which extends Polygon. It is
+ * 				the object which symbolizes the trash can.
+ */
+public class TrashCan extends Polygon 
+{
+	/**
+	 * Constructor for TrashCan
+	 * @param pos Position/Point for trash can
+	 */
+    public TrashCan(Point pos) 
+    {
         // shape for the trash bin
         super(new Point[] {
             new Point(0, 0), new Point(60, 0), new Point(50, 80), new Point(10, 80)
@@ -12,7 +23,6 @@ public class TrashCan extends Polygon {
     
     /**
      * draw on canvas
-     * return void
      * @param g
      */
     public void paint(Graphics g) {
