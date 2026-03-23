@@ -105,7 +105,7 @@ class Polygon {
   /**
    * Randy and Alex contribute to logic
    * @param object
-   * @return
+   * @return true or false if collision
    */
   public boolean collides(Polygon object) 
   {

@@ -305,8 +305,13 @@ class RecycleSwish extends Game
 		}
 	}
 	
-	//functional interface
+	/**
+	 * functional interface for executing actions
+	 */
 	interface GameAction {
+		/**
+		 * executes actions
+		 */
 		void execute();
 	}
 }

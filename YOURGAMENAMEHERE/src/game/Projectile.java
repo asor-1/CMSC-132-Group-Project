@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 /**
  * CLASS: Projectile
- * DESCRIPTION: Projectile class which extends Polygona and implements Reset.
+ * DESCRIPTION: Projectile class which extends Polygon and implements Reset.
  * 				This allows objects to have some kind of physics such as 
  * 				flying in the air.
  */

@@ -27,7 +27,7 @@ public class Paperball extends Projectile {
     
     /**
      * paints the paperball onto canvas
-     * @param Graphic g
+     * @param g Graphic g for graphics
      * return void
      */
     public void paint(Graphics g) {
