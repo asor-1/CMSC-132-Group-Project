@@ -2,7 +2,7 @@ package game;
 import java.awt.Color;
 import java.awt.Graphics;
 
-/*
+/**
  * CLASS: Pencil
  * DESCRIPTION: Pencil element for game which extends Projectile. It is the
  * 				object which symbolizes a pencil.

@@ -2,7 +2,7 @@ package game;
 import java.awt.Color;
 import java.awt.Graphics;
 
-/*
+/**
  * CLASS: TrashCan
  * DESCRIPTION: Trash can element for the game which extends Polygon. It is
  * 				the object which symbolizes the trash can.

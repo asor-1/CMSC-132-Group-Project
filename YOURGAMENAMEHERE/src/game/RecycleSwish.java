@@ -228,6 +228,10 @@ class RecycleSwish extends Game
 	 * Inner class that helps display the scoreboard and statistics
 	 */
 	private class Scoreboard{
+		/**
+		 * Draws the scoreboard
+		 * @param brush Graphics brush for drawing
+		 */
         public void draw(Graphics brush) {
             brush.setColor(Color.white);
             Font font = new Font("Arial", Font.BOLD, 30);
@@ -271,6 +275,10 @@ class RecycleSwish extends Game
 	 */
 	private class AimVisual
 	{
+		/**
+		 * draws the aim visual
+		 * @param brush graphics for drawing
+		 */
 		public void draw(Graphics brush)
 		{
 			//Changes color based on object

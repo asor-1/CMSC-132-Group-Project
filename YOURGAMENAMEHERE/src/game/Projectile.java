@@ -2,7 +2,7 @@ package game;
 
 import java.awt.Graphics;
 
-/*
+/**
  * CLASS: Projectile
  * DESCRIPTION: Projectile class which extends Polygona and implements Reset.
  * 				This allows objects to have some kind of physics such as 
