@@ -232,9 +232,9 @@ class RecycleSwish extends Game
             //this is the rules/instructuions
             brush.drawString("1 = Paperball", 20, heightSet - 135);
             brush.drawString("2 = Pencil", 20, heightSet - 115);
-            brush.drawString("UP/DOWN (Arrow) = Angle", 20, heightSet - 95);
-            brush.drawString("LEFT/RIGHT (Arrow) = Power", 20, heightSet - 75);
-            brush.drawString("SPACE = Launch!", 20, heightSet - 55);
+            brush.drawString("Up/down (Arrow key) = Angle", 20, heightSet - 95);
+            brush.drawString("Left/Right (Arrow key) = Power", 20, heightSet - 75);
+            brush.drawString("SPACE will launch", 20, heightSet - 55);
         }
     }
 	
